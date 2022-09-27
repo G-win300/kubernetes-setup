@@ -1,5 +1,6 @@
 # kubernetes-setup
 
+# create Cluster
 eksctl create cluster --name=gwineksdemo1 \
                       --region=us-east-1 \
                       --zones=us-east-1a,us-east-1b \
@@ -15,6 +16,7 @@ eksctl utils associate-iam-oidc-provider \
     
     
 # Create Public Node Group   
+
 eksctl create nodegroup --cluster=gwineksdemo1 \
                        --region=us-east-1 \
                        --name=gwineksdemo1-ng-private1 \
@@ -33,11 +35,11 @@ eksctl create nodegroup --cluster=gwineksdemo1 \
                        --alb-ingress-access \
                        --node-private-networking    /*for public subnet...just removed the line*/ 
                        
-    TO DELETE                   
+   # TO DELETE                   
 eksctl delete nodegroup --cluster=gwineksdemo1  --name=gwineksdemo1-ng-private1
 
 		
-		STEP 2
+		## STEP 2
 	# Download IAM Policy
 	## Download latest
 curl -o iam_policy_latest.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
