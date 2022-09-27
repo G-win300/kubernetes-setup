@@ -17,7 +17,7 @@ eksctl utils associate-iam-oidc-provider \
     
 # Create Public Node Group   
 
-eksctl create nodegroup --cluster=gwineksdemo1 \
+  eksctl create nodegroup --cluster=gwineksdemo1 \
                        --region=us-east-1 \
                        --name=gwineksdemo1-ng-private1 \
                        --node-type=t3.medium \
@@ -36,7 +36,7 @@ eksctl create nodegroup --cluster=gwineksdemo1 \
                        --node-private-networking    /*for public subnet...just removed the line*/ 
                        
    # TO DELETE                   
-eksctl delete nodegroup --cluster=gwineksdemo1  --name=gwineksdemo1-ng-private1
+  eksctl delete nodegroup --cluster=gwineksdemo1  --name=gwineksdemo1-ng-private1
 
 		
 		## STEP 2
