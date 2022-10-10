@@ -59,3 +59,42 @@ aws iam create-policy \
     --policy-document file://iam_policy_latest.json
     (#takenote: sometimes, the policy will have already been created sef. hence, no need downloading fresh iam_policy_v2.3.1.json file 
     of step 2a...except you're using new instance)
+    
+    
+ 		STEP3
+# Replaced name, cluster and policy arn (Policy arn we took note in step-02)
+eksctl create iamserviceaccount \
+  --cluster=gwineksdemo1 \
+  --namespace=kube-system \
+  --name=aws-load-balancer-controller \
+  --attach-policy-arn=arn:aws:iam::282024636277:policy/AWSLoadBalancerControllerIAMPolicy \
+  --override-existing-serviceaccounts \
+  --approve
+  
+  	VERIFY
+  eksctl get iamserviceaccount --cluster gwineksdemo1
+
+
+		STEP 4a
+    #note: get your VPC id and input in the command below
+    also, if deploying to any other region, use this link to get the "set image repo" (https://docs.aws.amazon.com/eks/latest/userguide/add-ons-images.html)
+	
+
+		STEP 4b
+# Install the AWS Load Balancer Controller.
+## Template
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
+  -n kube-system \
+  --set clusterName=gwineksdemo1 \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=aws-load-balancer-controller \
+  --set region=us-east-1 \
+  --set vpcId=vpc-0510ac48d05ad364f \
+  --set image.repository=602401143452.dkr.ecr.us-east-1.amazonaws.com/amazon/aws-load-balancer-controller
+
+		
+    COMMANDS TO Verify that the controller is installed and Webhook Service created
+ # Verify that the controller is installed.
+kubectl -n kube-system get deployment 
+kubectl -n kube-system get deployment aws-load-balancer-controller
+kubectl -n kube-system describe deployment aws-load-balancer-controller
