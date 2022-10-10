@@ -102,9 +102,9 @@ kubectl -n kube-system describe deployment aws-load-balancer-controller
 
 		 STEP 5
                        FOR EXTERNAL DNS
- This IAM policy will allow external-dns pod to add, remove DNS entries (Record Sets in a Hosted Zone) in AWS Route53 service
- go to policy in IAM and click on create new policy
- copy and paste this code
+This IAM policy will allow external-dns pod to add, remove DNS entries (Record Sets in a Hosted Zone) in AWS Route53 service
+go to policy in IAM and click on create new policy
+copy and paste this code
  -----------------------------------------------------
  
  {
