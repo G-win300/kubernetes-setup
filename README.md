@@ -106,6 +106,7 @@ kubectl -n kube-system describe deployment aws-load-balancer-controller
  go to policy in IAM and click on create new policy
  copy and paste this code
  -----------------------------------------------------
+ 
  {
   "Version": "2012-10-17",
   "Statement": [
@@ -130,4 +131,11 @@ kubectl -n kube-system describe deployment aws-load-balancer-controller
     }
   ]
 }
+
 --------------------------------------------------------------
+
+give this policy the following credentials:
+Name: AllowExternalDNSUpdates
+Description: Allow access to Route53 Resources for ExternalDNS
+ 
+ take note of the policy ARN=arn:aws:iam::282024636277:policy/AllowExternalDNSUpdates
