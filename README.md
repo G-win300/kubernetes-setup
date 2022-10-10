@@ -98,3 +98,36 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
 kubectl -n kube-system get deployment 
 kubectl -n kube-system get deployment aws-load-balancer-controller
 kubectl -n kube-system describe deployment aws-load-balancer-controller
+
+
+		 STEP 5
+                       FOR EXTERNAL DNS
+ This IAM policy will allow external-dns pod to add, remove DNS entries (Record Sets in a Hosted Zone) in AWS Route53 service
+ go to policy in IAM and click on create new policy
+ copy and paste this code
+ -----------------------------------------------------
+ {
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "route53:ChangeResourceRecordSets"
+      ],
+      "Resource": [
+        "arn:aws:route53:::hostedzone/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "route53:ListHostedZones",
+        "route53:ListResourceRecordSets"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}
+--------------------------------------------------------------
