@@ -177,6 +177,6 @@ Observation:
   
   # list service accounts
 `eksctl get iamserviceaccount --cluster gwineksdemo1`
-Note (  take note of external-dns ROLE ARN and replace it in the external dns manifest)
+Note ( take note of external-dns ROLE ARN and replace it in the external dns manifest)
 arn:aws:iam::282024636277:role/eksctl-gwineksdemo1-addon-iamserviceaccount-Role1-UZMOX1G70VX5
 
