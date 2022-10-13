@@ -1,4 +1,4 @@
-# kubernetes-setup
+ KUBERNETES SETUP
 
 # Create cluster
 
@@ -8,7 +8,7 @@ eksctl create cluster --name=gwineksdemo1 \
                       --zones=us-east-1a,us-east-1b \
                       --without-nodegroup 
 ```
-       TO DELETE             
+       To delete            
 `eksctl delete cluster gwineksdemo1`
                       
         FOR IAM-OIDC-PROVIDER  
@@ -57,8 +57,8 @@ eksctl utils associate-iam-oidc-provider \
 
 *(....#take note of policyARN)*
 
-		STEP 2B
-	 Create IAM Policy using policy downloaded 
+	STEP 2B
+ Create IAM Policy using policy downloaded 
 	
 ```
 aws iam create-policy \
@@ -68,7 +68,7 @@ aws iam create-policy \
     of step 2a...except you're using new instance)
 ```
     
- 		STEP3
+ 		STEP 3
  Replaced name, cluster and policy arn (Policy arn we took note in step-02)
 
 ```
@@ -90,8 +90,8 @@ eksctl create iamserviceaccount \
 	
 
 		STEP 4b
-# Install the AWS Load Balancer Controller.
-## Template
+Install the AWS Load Balancer Controller.
+
 ```
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   -n kube-system \
