@@ -1,12 +1,14 @@
 # kubernetes-setup
 
 # create Cluster
+```
 eksctl create cluster --name=gwineksdemo1 \
                       --region=us-east-1 \
                       --zones=us-east-1a,us-east-1b \
                       --without-nodegroup 
+```
        TO DELETE             
-eksctl delete cluster gwineksdemo1
+`eksctl delete cluster gwineksdemo1`
                       
                       
 eksctl utils associate-iam-oidc-provider \
