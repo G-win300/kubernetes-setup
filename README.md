@@ -1,4 +1,4 @@
- KUBERNETES SETUP
+# KUBERNETES SETUP
 
 # Create cluster
 
@@ -8,10 +8,10 @@ eksctl create cluster --name=gwineksdemo1 \
                       --zones=us-east-1a,us-east-1b \
                       --without-nodegroup 
 ```
-       To delete            
+To delete            
 `eksctl delete cluster gwineksdemo1`
                       
-        FOR IAM-OIDC-PROVIDER  
+FOR IAM-OIDC-PROVIDER  
 ```
 eksctl utils associate-iam-oidc-provider \
     --region us-east-1 \
@@ -19,7 +19,7 @@ eksctl utils associate-iam-oidc-provider \
     --approve
 ```    
     
- Create Public Node Group   
+Create Public Node Group   
 ```
   eksctl create nodegroup --cluster=gwineksdemo1 \
                        --region=us-east-1 \
@@ -40,11 +40,11 @@ eksctl utils associate-iam-oidc-provider \
                        --node-private-networking    /*for public subnet...just removed the line*/ 
 ```
                        
-   # TO DELETE                   
+TO DELETE                   
  `eksctl delete nodegroup --cluster=gwineksdemo1  --name=gwineksdemo1-ng-private1`
 
 		
-	STEP 2
+STEP 2
   * Download IAM Policy
   * Download latest
 `curl -o iam_policy_latest.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json`
@@ -52,12 +52,12 @@ eksctl utils associate-iam-oidc-provider \
    **Verify latest**
   `ls -lrta` 
 
-    **Download specific version**
+**Download specific version**
   `curl -o iam_policy_v2.3.1.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.3.1/docs/install/iam_policy.json`
 
 *(....#take note of policyARN)*
 
-	STEP 2B
+STEP 2B
  Create IAM Policy using policy downloaded 
 	
 ```
@@ -68,7 +68,7 @@ aws iam create-policy \
     of step 2a...except you're using new instance)
 ```
     
- 		STEP 3
+ STEP 3
  Replaced name, cluster and policy arn (Policy arn we took note in step-02)
 
 ```
@@ -80,16 +80,16 @@ eksctl create iamserviceaccount \
   --override-existing-serviceaccounts \
   --approve
 ```  
-  	VERIFY
+VERIFY
   `eksctl get iamserviceaccount --cluster gwineksdemo1`
 
 
-		STEP 4a
+STEP 4a
     #note: get your VPC id and input in the command below
     also, if deploying to any other region, use this link to get the "set image repo" (https://docs.aws.amazon.com/eks/latest/userguide/add-ons-images.html)
 	
 
-		STEP 4b
+STEP 4b
 Install the AWS Load Balancer Controller.
 
 ```
@@ -110,7 +110,7 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
 `kubectl -n kube-system describe deployment aws-load-balancer-controller`
 
 
-		 STEP 5
+STEP 5
               FOR EXTERNAL DNS
 This IAM policy will allow external-dns pod to add, remove DNS entries (Record Sets in a Hosted Zone) in AWS Route53 service
 go to policy in IAM and click on create new policy
@@ -153,7 +153,7 @@ Description: Allow access to Route53 Resources for ExternalDNS
  take note of the policy ARN=arn:aws:iam::282024636277:policy/AllowExternalDNSUpdates
  
  
- STEP 6
+STEP 6
   `Create IAM Role, k8s Service Account & Associate IAM Policy`
     
  ``` 
@@ -167,7 +167,7 @@ eksctl create iamserviceaccount \
  ```   
    Note (  # Replaced name, namespace, cluster, IAM Policy arn )
     
-    	VERIFY
+VERIFY
     # List Service Account
 `kubectl get sa external-dns`
 
