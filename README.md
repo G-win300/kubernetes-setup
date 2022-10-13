@@ -141,3 +141,33 @@ Name: AllowExternalDNSUpdates
 Description: Allow access to Route53 Resources for ExternalDNS
  
  take note of the policy ARN=arn:aws:iam::282024636277:policy/AllowExternalDNSUpdates
+ 
+ 
+ STEP 6
+    Create IAM Role, k8s Service Account & Associate IAM Policy
+    
+  
+eksctl create iamserviceaccount \
+    --name external-dns \
+    --namespace default \
+    --cluster gwineksdemo1 \
+    --attach-policy-arn arn:aws:iam::282024636277:policy/AllowExternalDNSUpdates \
+    --approve \
+    --override-existing-serviceaccounts
+    
+   Note (  # Replaced name, namespace, cluster, IAM Policy arn )
+    
+    	VERIFY
+    # List Service Account
+kubectl get sa external-dns
+
+# Describe Service Account
+kubectl describe sa external-dns
+Observation: 
+1. Verify the Annotations and you should see the IAM Role is present on the Service Account
+  
+  # list service accounts
+eksctl get iamserviceaccount --cluster gwineksdemo1
+Note (  take note of external-dns ROLE ARN and replace it in the external dns manifest)
+arn:aws:iam::282024636277:role/eksctl-gwineksdemo1-addon-iamserviceaccount-Role1-UZMOX1G70VX5
+
