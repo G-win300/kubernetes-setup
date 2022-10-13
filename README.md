@@ -58,7 +58,8 @@ eksctl utils associate-iam-oidc-provider \
 *(....#take note of policyARN)*
 
 		STEP 2B
-	# Create IAM Policy using policy downloaded 
+	 Create IAM Policy using policy downloaded 
+	
 ```
 aws iam create-policy \
     --policy-name AWSLoadBalancerControllerIAMPolicy \
@@ -68,7 +69,8 @@ aws iam create-policy \
 ```
     
  		STEP3
-# Replaced name, cluster and policy arn (Policy arn we took note in step-02)
+ Replaced name, cluster and policy arn (Policy arn we took note in step-02)
+
 ```
 eksctl create iamserviceaccount \
   --cluster=gwineksdemo1 \
